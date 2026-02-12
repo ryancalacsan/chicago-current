@@ -44,7 +44,7 @@ export default function SplitTextReveal({
           word.split("").forEach((char) => {
             const charOuter = document.createElement("span");
             charOuter.style.display = "inline-block";
-            charOuter.style.overflow = "hidden";
+            charOuter.style.clipPath = "inset(-0.3em -0.15em)";
 
             const charInner = document.createElement("span");
             charInner.style.display = "inline-block";
@@ -58,7 +58,7 @@ export default function SplitTextReveal({
           // Whole word animation
           const outer = document.createElement("span");
           outer.style.display = "inline-block";
-          outer.style.overflow = "hidden";
+          outer.style.clipPath = "inset(-0.3em -0.15em)";
 
           const inner = document.createElement("span");
           inner.style.display = "inline-block";

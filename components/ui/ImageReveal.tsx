@@ -17,17 +17,17 @@ interface ImageRevealProps {
 }
 
 function getClipPath(direction: RevealDirection, open: boolean) {
-  if (open) return "inset(0 0% 0 0)";
+  if (open) return "inset(0% 0% 0% 0%)";
 
   switch (direction) {
     case "left":
-      return "inset(0 100% 0 0)";
+      return "inset(0% 100% 0% 0%)";
     case "right":
-      return "inset(0 0 0 100%)";
+      return "inset(0% 0% 0% 100%)";
     case "top":
-      return "inset(100% 0 0 0)";
+      return "inset(100% 0% 0% 0%)";
     case "bottom":
-      return "inset(0 0 100% 0)";
+      return "inset(0% 0% 100% 0%)";
   }
 }
 
@@ -40,30 +40,33 @@ export default function ImageReveal({
 }: ImageRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const initialClipPath = getClipPath(direction, false);
+
   useGSAP(
     () => {
       if (prefersReducedMotion() || !containerRef.current) return;
 
-      gsap.fromTo(
-        containerRef.current,
-        { clipPath: getClipPath(direction, false) },
-        {
-          clipPath: getClipPath(direction, true),
-          ease: "power2.inOut",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 80%",
-            end: "top 30%",
-            scrub: 1,
-          },
-        }
-      );
+      gsap.to(containerRef.current, {
+        clipPath: getClipPath(direction, true),
+        opacity: 1,
+        ease: "power1.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 90%",
+          end: "top 30%",
+          scrub: true,
+        },
+      });
     },
     { scope: containerRef }
   );
 
   return (
-    <div ref={containerRef} className={`relative overflow-hidden ${className}`}>
+    <div
+      ref={containerRef}
+      className={`relative overflow-hidden ${className}`}
+      style={{ clipPath: initialClipPath, opacity: 0 }}
+    >
       <Image
         src={src}
         alt={alt}

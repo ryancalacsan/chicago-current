@@ -31,6 +31,7 @@ export default function SectionCity() {
               src="/images/city-01.jpg"
               alt="Chicago skyline from the river"
               className="relative aspect-[16/9] w-full"
+              sizes="(max-width: 768px) 100vw, 67vw"
             />
           </div>
           <div className="md:col-span-4">
