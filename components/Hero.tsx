@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap } from "@/lib/gsap-config";
+import { gsap, ScrollTrigger } from "@/lib/gsap-config";
 import ParallaxImage from "@/components/ui/ParallaxImage";
 import SplitTextReveal from "@/components/ui/SplitTextReveal";
 import TextReveal from "@/components/ui/TextReveal";
@@ -13,6 +13,7 @@ export default function Hero() {
   useGSAP(() => {
     if (!scrollIndicatorRef.current) return;
 
+    // Bounce animation
     gsap.to(scrollIndicatorRef.current, {
       y: 10,
       opacity: 0.4,
@@ -20,6 +21,18 @@ export default function Hero() {
       repeat: -1,
       yoyo: true,
       ease: "power2.inOut",
+    });
+
+    // Fade out on scroll
+    gsap.to(scrollIndicatorRef.current, {
+      opacity: 0,
+      ease: "none",
+      scrollTrigger: {
+        trigger: scrollIndicatorRef.current,
+        start: "top 95%",
+        end: "top 75%",
+        scrub: true,
+      },
     });
   });
 
@@ -36,12 +49,13 @@ export default function Hero() {
           speed={0.2}
           className="h-full w-full"
           priority
+          objectPosition="center center"
         />
-        <div className="absolute inset-0 bg-bg/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-bg/20 via-bg/50 to-bg/30" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center px-6 text-center">
+      <div className="relative z-10 flex flex-col items-center px-6 text-center [text-shadow:0_1px_12px_rgba(245,240,232,0.6),0_0_40px_rgba(245,240,232,0.3)]">
         <SplitTextReveal
           type="chars"
           stagger={0.04}
@@ -68,6 +82,9 @@ export default function Hero() {
           </p>
         </TextReveal>
       </div>
+
+      {/* Bottom gradient fade into next section */}
+      <div className="absolute bottom-0 left-0 z-10 h-32 w-full bg-gradient-to-b from-transparent to-[#ede6da]" />
 
       {/* Scroll indicator */}
       <div

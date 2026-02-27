@@ -39,7 +39,20 @@ export default function PreloaderProvider({
   }, []);
 
   useEffect(() => {
-    document.fonts.ready.then(() => {
+    // Wait for both fonts and hero image before revealing
+    const fontsReady = document.fonts.ready;
+    const heroReady = new Promise<void>((resolve) => {
+      const img = new Image();
+      img.src = "/images/hero.jpg";
+      if (img.complete) {
+        resolve();
+      } else {
+        img.onload = () => resolve();
+        img.onerror = () => resolve(); // Don't block on error
+      }
+    });
+
+    Promise.all([fontsReady, heroReady]).then(() => {
       setContentReady(true);
     });
   }, []);

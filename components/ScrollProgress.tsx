@@ -26,7 +26,7 @@ export default function ScrollProgress() {
     <div className="fixed top-0 left-0 z-40 h-[2px] w-full">
       <div
         ref={barRef}
-        className="h-full w-full origin-left scale-x-0 bg-accent/60"
+        className="h-full w-full origin-left scale-x-0 bg-[#c8956c]/60 shadow-[0_0_8px_rgba(200,149,108,0.4)]"
       />
     </div>
   );

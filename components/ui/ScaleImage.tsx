@@ -12,6 +12,7 @@ interface ScaleImageProps {
   className?: string;
   priority?: boolean;
   sizes?: string;
+  objectPosition?: string;
 }
 
 export default function ScaleImage({
@@ -20,6 +21,7 @@ export default function ScaleImage({
   className = "",
   priority = false,
   sizes = "100vw",
+  objectPosition = "center",
 }: ScaleImageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
@@ -48,13 +50,14 @@ export default function ScaleImage({
   );
 
   return (
-    <div ref={containerRef} className={`relative overflow-hidden ${className}`}>
+    <div ref={containerRef} className={`relative overflow-hidden will-change-transform ${className}`}>
       <Image
         ref={imageRef}
         src={src}
         alt={alt}
         fill
         className="object-cover"
+        style={{ objectPosition }}
         sizes={sizes}
         priority={priority}
       />

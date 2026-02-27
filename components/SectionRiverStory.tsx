@@ -15,9 +15,50 @@ export default function SectionRiverStory() {
 
   useGSAP(
     () => {
-      if (prefersReducedMotion() || isMobile() || !pinRef.current) return;
+      if (prefersReducedMotion() || !pinRef.current) return;
 
-      // Create a timeline that plays during the pin scroll
+      if (isMobile()) {
+        // Mobile: simple scroll-triggered staggered reveals
+        gsap.from(labelRef.current, {
+          opacity: 0,
+          y: 20,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: labelRef.current,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        });
+
+        gsap.from(para1Ref.current, {
+          opacity: 0,
+          y: 30,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: para1Ref.current,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        });
+
+        gsap.from(para2Ref.current, {
+          opacity: 0,
+          y: 30,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: para2Ref.current,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        });
+
+        return;
+      }
+
+      // Desktop: pinned scroll timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -29,21 +70,18 @@ export default function SectionRiverStory() {
         },
       });
 
-      // Stagger the content reveals across the scroll duration
       tl.from(
         labelRef.current,
         { opacity: 0, y: 20, duration: 0.15 },
         0
       );
 
-      // First paragraph fades in at ~30% scroll
       tl.from(
         para1Ref.current,
         { opacity: 0, y: 30, duration: 0.2 },
         0.3
       );
 
-      // Second paragraph fades in at ~60% scroll
       tl.from(
         para2Ref.current,
         { opacity: 0, y: 30, duration: 0.2 },
@@ -83,24 +121,25 @@ export default function SectionRiverStory() {
             ref={para1Ref}
             className="mx-auto mt-16 max-w-2xl text-[length:var(--text-body)] leading-relaxed opacity-80"
           >
-            Long before steel and glass defined its banks, this river was a
-            highway of commerce, a boundary of nations, and a source of life.
-            In 1900, engineers accomplished what many called impossible — they
-            reversed its flow, sending its waters away from Lake Michigan and
-            toward the Mississippi.
+            Long before steel and glass, the river wound through prairie and
+            wetland — home to the Potawatomi, the Miami, the Illinois. In
+            1900, engineers reversed its flow entirely, sending its waters
+            toward the Mississippi instead of the lake.
           </p>
 
           <p
             ref={para2Ref}
             className="mx-auto mt-10 max-w-2xl text-[length:var(--text-body)] leading-relaxed opacity-80"
           >
-            Today, the river tells a different story — one of restoration, of
-            a city learning to face the water it once turned its back on. And
-            from a kayak, sitting just inches above the surface, you hear it
-            all.
+            Today, the river is coming back. Dams have come down. Floating
+            gardens bloom where the water was once declared dead. And from a
+            kayak, sitting inches above the surface, you hear it all.
           </p>
         </div>
       </div>
+
+      {/* Gradient bridge into Green section */}
+      <div className="absolute bottom-0 left-0 h-8 w-full bg-gradient-to-b from-transparent to-[#1a3a2a]" />
     </section>
   );
 }

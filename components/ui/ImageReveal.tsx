@@ -14,6 +14,8 @@ interface ImageRevealProps {
   direction?: RevealDirection;
   className?: string;
   priority?: boolean;
+  sizes?: string;
+  objectPosition?: string;
 }
 
 function getClipPath(direction: RevealDirection, open: boolean) {
@@ -37,6 +39,8 @@ export default function ImageReveal({
   direction = "left",
   className = "",
   priority = false,
+  sizes = "(max-width: 768px) 100vw, 50vw",
+  objectPosition = "center",
 }: ImageRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -72,7 +76,8 @@ export default function ImageReveal({
         alt={alt}
         fill
         className="object-cover"
-        sizes="(max-width: 768px) 100vw, 50vw"
+        style={{ objectPosition }}
+        sizes={sizes}
         priority={priority}
       />
     </div>

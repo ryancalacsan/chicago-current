@@ -6,12 +6,23 @@ export default function Footer() {
   return (
     <footer className="bg-[#1a1410] px-6 py-20 text-[#f5f0e8]/70">
       <div className="mx-auto max-w-4xl">
-        <TextReveal>
-          <div className="flex flex-col items-center gap-8 text-center">
+        <div className="flex flex-col items-center gap-8 text-center">
+          {/* Decorative divider */}
+          <TextReveal>
+            <div className="flex items-center gap-4">
+              <div className="h-px w-12 bg-[#f5f0e8]/20" />
+              <div className="h-1.5 w-1.5 rotate-45 bg-[#c8956c]/60" />
+              <div className="h-px w-12 bg-[#f5f0e8]/20" />
+            </div>
+          </TextReveal>
+
+          <TextReveal delay={0.1}>
             <p className="font-serif text-2xl text-[#f5f0e8]">
               Chicago Current
             </p>
+          </TextReveal>
 
+          <TextReveal delay={0.2}>
             <div className="text-[length:var(--text-caption)] leading-relaxed">
               <p>Photography by Ryan Calacsan</p>
               <p>Words by Erica Zazo</p>
@@ -19,13 +30,15 @@ export default function Footer() {
                 Originally published in Mountain Gazette
               </p>
             </div>
+          </TextReveal>
 
+          <TextReveal delay={0.3}>
             <div className="flex gap-8 text-[length:var(--text-caption)] uppercase tracking-[0.2em]">
               <a
                 href="https://ryancalacsan.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-opacity hover:opacity-100 opacity-60"
+                className="opacity-60 transition-opacity duration-300 hover:opacity-100"
               >
                 Portfolio
               </a>
@@ -33,7 +46,7 @@ export default function Footer() {
                 href="https://github.com/ryancalacsan"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-opacity hover:opacity-100 opacity-60"
+                className="opacity-60 transition-opacity duration-300 hover:opacity-100"
               >
                 GitHub
               </a>
@@ -41,17 +54,19 @@ export default function Footer() {
                 href="https://linkedin.com/in/ryancalacsan"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-opacity hover:opacity-100 opacity-60"
+                className="opacity-60 transition-opacity duration-300 hover:opacity-100"
               >
                 LinkedIn
               </a>
             </div>
+          </TextReveal>
 
+          <TextReveal delay={0.4}>
             <p className="text-[length:var(--text-caption)] opacity-30">
               Built with Next.js, GSAP, Tailwind CSS
             </p>
-          </div>
-        </TextReveal>
+          </TextReveal>
+        </div>
       </div>
     </footer>
   );

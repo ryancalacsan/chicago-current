@@ -4,29 +4,44 @@ import { useRef } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/gsap-config";
+import ImageReveal from "@/components/ui/ImageReveal";
 import TextReveal from "@/components/ui/TextReveal";
 import { prefersReducedMotion, isMobile } from "@/lib/utils";
+
+type RevealDirection = "left" | "right" | "top" | "bottom";
 
 const images = [
   {
     src: "/images/green-01.jpg",
     alt: "Dense tree canopy arching over the river",
-    caption: "The canopy closes in",
+    caption: "North Branch, looking south",
+    orientation: "landscape" as const,
+    objectPosition: "70% center",
+    mobileReveal: "left" as RevealDirection,
   },
   {
     src: "/images/green-02.jpg",
     alt: "Kayaker paddling through a tunnel of green",
-    caption: "North Branch",
-  },
-  {
-    src: "/images/green-03.jpg",
-    alt: "Reflections of trees in still water",
-    caption: "Still water mirrors",
+    caption: "The green tunnel near Horner Park",
+    orientation: "landscape" as const,
+    objectPosition: "70% center",
+    mobileReveal: "right" as RevealDirection,
   },
   {
     src: "/images/green-04.jpg",
-    alt: "Wildlife on the riverbank",
-    caption: "River residents",
+    alt: "A juvenile black-crowned night heron on the riverbank",
+    caption: "Juvenile black-crowned night heron",
+    orientation: "landscape" as const,
+    objectPosition: "30% center",
+    mobileReveal: "bottom" as RevealDirection,
+  },
+  {
+    src: "/images/green-03.jpg",
+    alt: "Native wildflowers at Horner Park Natural Area",
+    caption: "Wildflowers at Horner Park",
+    orientation: "portrait" as const,
+    objectPosition: "center center",
+    mobileReveal: "left" as RevealDirection,
   },
 ];
 
@@ -41,7 +56,7 @@ export default function SectionGreen() {
       const totalWidth = trackRef.current.scrollWidth;
       const viewportWidth = window.innerWidth;
 
-      gsap.to(trackRef.current, {
+      const scrollTween = gsap.to(trackRef.current, {
         x: -(totalWidth - viewportWidth),
         ease: "none",
         scrollTrigger: {
@@ -53,6 +68,34 @@ export default function SectionGreen() {
           invalidateOnRefresh: true,
         },
       });
+
+      // Nested animations: each image scales up and fades in within its panel
+      const panels = gsap.utils.toArray<HTMLElement>(
+        ".green-image-panel",
+        trackRef.current
+      );
+
+      panels.forEach((panel) => {
+        const inner = panel.querySelector(".green-image-inner");
+        if (!inner) return;
+
+        gsap.fromTo(
+          inner,
+          { scale: 1.15, opacity: 0.6 },
+          {
+            scale: 1,
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: panel,
+              containerAnimation: scrollTween,
+              start: "left 90%",
+              end: "left 30%",
+              scrub: true,
+            },
+          }
+        );
+      });
     },
     { scope: sectionRef }
   );
@@ -63,54 +106,91 @@ export default function SectionGreen() {
       data-theme="green"
       className="relative bg-bg text-text"
     >
-      {/* Section header */}
-      <div className="px-6 pt-24 pb-12 md:hidden">
+      {/* Section header (mobile) */}
+      <div className="px-6 pt-32 pb-12 md:hidden">
         <TextReveal>
-          <h2 className="font-serif text-[length:var(--text-section)]">
+          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-50">
+            Mile 2
+          </p>
+        </TextReveal>
+        <TextReveal delay={0.1}>
+          <h2 className="mt-4 font-serif text-[length:var(--text-section)]">
             Into the Green
           </h2>
         </TextReveal>
+        <TextReveal delay={0.15}>
+          <p className="mt-4 max-w-sm text-[length:var(--text-body)] leading-relaxed opacity-70">
+            The North Branch narrows and overhanging branches form tunnels
+            — ten degrees cooler in the shade.
+          </p>
+        </TextReveal>
       </div>
 
-      {/* Horizontal scroll track (desktop) / Vertical stack (mobile) */}
+      {/* Mobile: animated vertical gallery */}
+      <div className="flex flex-col gap-6 px-6 pb-24 md:hidden">
+        {images.map((img, i) => {
+          const isPortrait = img.orientation === "portrait";
+          return (
+            <ImageReveal
+              key={i}
+              src={img.src}
+              alt={img.alt}
+              direction={img.mobileReveal}
+              objectPosition={img.objectPosition}
+              sizes="100vw"
+              className={`relative w-full ${isPortrait ? "aspect-[2/3]" : "aspect-[4/3]"}`}
+            />
+          );
+        })}
+      </div>
+
+      {/* Desktop: horizontal scroll track */}
       <div
         ref={trackRef}
-        className="flex flex-col gap-8 px-6 pb-24 md:h-screen md:flex-row md:items-center md:gap-12 md:px-0 md:pb-0"
+        className="hidden md:flex md:h-screen md:flex-row md:items-center md:gap-12 md:px-0 will-change-transform"
       >
-        {/* Title panel (desktop only) */}
-        <div className="hidden shrink-0 md:flex md:h-full md:w-screen md:flex-col md:items-center md:justify-center md:px-24">
+        {/* Title panel */}
+        <div className="shrink-0 md:flex md:h-full md:w-screen md:flex-col md:items-center md:justify-center md:px-24">
           <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-50">
-            Mile 3
+            Mile 2
           </p>
           <h2 className="mt-4 font-serif text-[length:var(--text-hero)] leading-[0.9]">
             Into the Green
           </h2>
           <p className="mt-6 max-w-md text-[length:var(--text-body)] leading-relaxed opacity-70">
-            The North Branch narrows and the city falls away. Here, the river
-            remembers what it was before concrete and steel.
+            The North Branch narrows and overhanging branches form tunnels —
+            ten degrees cooler in the shade. At Horner Park, purple
+            coneflowers line the riverbank. Here, the river remembers what it
+            was before concrete and steel.
           </p>
         </div>
 
         {/* Image panels */}
-        {images.map((img, i) => (
-          <div
-            key={i}
-            className="relative shrink-0 md:h-[80vh] md:w-[60vw]"
-          >
-            <div className="relative aspect-[4/3] w-full md:aspect-auto md:h-full">
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 60vw"
-              />
+        {images.map((img, i) => {
+          const isPortrait = img.orientation === "portrait";
+          return (
+            <div
+              key={i}
+              className={`green-image-panel group relative shrink-0 overflow-hidden md:h-[80vh] ${isPortrait ? "md:w-[40vw]" : "md:w-[60vw]"}`}
+            >
+              <div className="green-image-inner relative h-full w-full overflow-hidden">
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: img.objectPosition }}
+                  sizes={isPortrait ? "40vw" : "60vw"}
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/50 to-transparent px-6 pb-5 pt-12 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                  <p className="text-[length:var(--text-caption)] tracking-[0.1em] text-white/80">
+                    {img.caption}
+                  </p>
+                </div>
+              </div>
             </div>
-            <p className="mt-3 text-[length:var(--text-caption)] opacity-60 md:absolute md:bottom-6 md:left-6">
-              {img.caption}
-            </p>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

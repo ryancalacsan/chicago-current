@@ -3,6 +3,7 @@
 import ScaleImage from "@/components/ui/ScaleImage";
 import TextReveal from "@/components/ui/TextReveal";
 import SplitTextReveal from "@/components/ui/SplitTextReveal";
+import ScrollHighlight from "@/components/ui/ScrollHighlight";
 
 export default function SectionSummit() {
   return (
@@ -14,12 +15,13 @@ export default function SectionSummit() {
       <div className="relative h-screen">
         <ScaleImage
           src="/images/summit-01.jpg"
-          alt="Golden light on the river at journey's end"
+          alt="A lone kayak at the Riverwalk boat launch"
           className="h-full w-full"
+          objectPosition="center 60%"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg/80 via-bg/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-bg/90 via-bg/40 to-bg/10" />
 
-        <div className="absolute inset-0 flex flex-col items-center justify-end pb-24 px-6">
+        <div className="absolute inset-0 flex flex-col items-center justify-end pb-24 px-6 [text-shadow:0_2px_12px_rgba(0,0,0,0.3)]">
           <TextReveal>
             <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-60">
               Mile 9 &middot; Journey&apos;s End
@@ -38,10 +40,11 @@ export default function SectionSummit() {
         <div className="mx-auto max-w-3xl">
           <TextReveal>
             <p className="text-[length:var(--text-body)] leading-relaxed">
-              We pulled the kayaks out at the lakefront, arms heavy, faces
-              sunburned. Nine miles of river behind us — from the quiet
-              headwaters of the North Shore Channel through the industrial
-              corridor and into the canyon of downtown.
+              We hauled the kayaks up the cascading steps of the River
+              Theater, nearly seven hours after pushing off from Lincoln
+              Square. Riverwalk pedestrians eyed our overstuffed kayaks and
+              rosy cheeks. Nine miles of river behind us — one last
+              high-five.
             </p>
           </TextReveal>
 
@@ -56,14 +59,21 @@ export default function SectionSummit() {
             </SplitTextReveal>
           </div>
 
-          <TextReveal>
-            <p className="text-center text-[length:var(--text-body)] leading-relaxed opacity-70">
-              The river doesn&apos;t belong to the city. The city belongs to the
-              river.
-            </p>
+          <ScrollHighlight className="mt-8 text-center text-[length:var(--text-body)] leading-relaxed">
+            The river doesn&apos;t belong to the city. The city belongs to the river.
+          </ScrollHighlight>
+
+          {/* Closing mark */}
+          <TextReveal delay={0.3}>
+            <div className="mt-20 flex justify-center">
+              <div className="h-px w-16 bg-text/20" />
+            </div>
           </TextReveal>
         </div>
       </div>
+
+      {/* Gradient bridge into Footer */}
+      <div className="absolute bottom-0 left-0 h-6 w-full bg-gradient-to-b from-transparent to-[#1a1410]" />
     </section>
   );
 }
