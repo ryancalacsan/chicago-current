@@ -24,7 +24,7 @@ export default function Footer() {
 
           <div className="flex gap-8 text-[length:var(--text-caption)] uppercase tracking-[0.2em]">
             <a
-              href="https://ryancalacsan.com"
+              href="https://www.ryancalacsan.dev/"
               target="_blank"
               rel="noopener noreferrer"
               className="opacity-60 transition-opacity duration-300 hover:opacity-100"

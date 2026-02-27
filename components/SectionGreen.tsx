@@ -179,11 +179,11 @@ export default function SectionGreen() {
                   style={{ objectPosition: img.objectPosition }}
                   sizes={isPortrait ? "40vw" : "60vw"}
                 />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/50 to-transparent px-6 pb-5 pt-12 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                  <p className="text-[length:var(--text-caption)] tracking-[0.1em] text-white/80">
-                    {img.caption}
-                  </p>
-                </div>
+              </div>
+              <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/50 to-transparent px-6 pb-5 pt-12 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                <p className="text-[length:var(--text-caption)] tracking-[0.1em] text-white/80">
+                  {img.caption}
+                </p>
               </div>
             </div>
           );
