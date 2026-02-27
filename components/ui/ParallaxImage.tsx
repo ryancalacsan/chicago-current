@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
-import { gsap, ScrollTrigger } from "@/lib/gsap-config";
+import { gsap } from "@/lib/gsap-config";
 import { prefersReducedMotion, isMobile } from "@/lib/utils";
 
 interface ParallaxImageProps {

@@ -48,7 +48,15 @@ export default function ImageReveal({
 
   useGSAP(
     () => {
-      if (prefersReducedMotion() || !containerRef.current) return;
+      if (!containerRef.current) return;
+
+      if (prefersReducedMotion()) {
+        gsap.set(containerRef.current, {
+          clipPath: "inset(0% 0% 0% 0%)",
+          opacity: 1,
+        });
+        return;
+      }
 
       gsap.to(containerRef.current, {
         clipPath: getClipPath(direction, true),

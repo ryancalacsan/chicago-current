@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { isMobile } from "@/lib/utils";
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
+  const [isActive, setIsActive] = useState(false);
   const posRef = useRef({ x: 0, y: 0 });
   const targetRef = useRef({ x: 0, y: 0 });
   const rafRef = useRef<number>(0);
@@ -30,6 +31,7 @@ export default function CustomCursor() {
   useEffect(() => {
     if (isMobile() || "ontouchstart" in window) return;
 
+    setIsActive(true);
     document.body.style.cursor = "none";
 
     const onMouseMove = (e: MouseEvent) => {
@@ -37,52 +39,46 @@ export default function CustomCursor() {
       targetRef.current.y = e.clientY;
     };
 
-    const onMouseEnter = () => {
-      isHoveringRef.current = true;
+    // Event delegation — works for dynamically rendered elements
+    const onMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest("a, button, [role='button']")) {
+        isHoveringRef.current = true;
+      }
+      if (target.closest("img, [class*='aspect-']")) {
+        isOverImageRef.current = true;
+      }
     };
 
-    const onMouseLeave = () => {
-      isHoveringRef.current = false;
+    const onMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const related = e.relatedTarget as HTMLElement | null;
+      if (
+        target.closest("a, button, [role='button']") &&
+        !related?.closest("a, button, [role='button']")
+      ) {
+        isHoveringRef.current = false;
+      }
+      if (
+        target.closest("img, [class*='aspect-']") &&
+        !related?.closest("img, [class*='aspect-']")
+      ) {
+        isOverImageRef.current = false;
+      }
     };
 
     window.addEventListener("mousemove", onMouseMove);
-
-    const interactiveElements = document.querySelectorAll(
-      "a, button, [role='button']"
-    );
-    interactiveElements.forEach((el) => {
-      el.addEventListener("mouseenter", onMouseEnter);
-      el.addEventListener("mouseleave", onMouseLeave);
-    });
-
-    const onImageEnter = () => {
-      isOverImageRef.current = true;
-    };
-    const onImageLeave = () => {
-      isOverImageRef.current = false;
-    };
-
-    const imageContainers = document.querySelectorAll(
-      "img, [class*='aspect-']"
-    );
-    imageContainers.forEach((el) => {
-      el.addEventListener("mouseenter", onImageEnter);
-      el.addEventListener("mouseleave", onImageLeave);
-    });
+    document.addEventListener("mouseover", onMouseOver);
+    document.addEventListener("mouseout", onMouseOut);
 
     rafRef.current = requestAnimationFrame(animate);
 
     return () => {
+      setIsActive(false);
       document.body.style.cursor = "";
       window.removeEventListener("mousemove", onMouseMove);
-      interactiveElements.forEach((el) => {
-        el.removeEventListener("mouseenter", onMouseEnter);
-        el.removeEventListener("mouseleave", onMouseLeave);
-      });
-      imageContainers.forEach((el) => {
-        el.removeEventListener("mouseenter", onImageEnter);
-        el.removeEventListener("mouseleave", onImageLeave);
-      });
+      document.removeEventListener("mouseover", onMouseOver);
+      document.removeEventListener("mouseout", onMouseOut);
       cancelAnimationFrame(rafRef.current);
     };
   }, [animate]);
@@ -90,7 +86,7 @@ export default function CustomCursor() {
   return (
     <div
       ref={cursorRef}
-      className="pointer-events-none fixed top-0 left-0 z-[100] hidden h-5 w-5 rounded-full border border-text/50 transition-[width,height] duration-300 md:block"
+      className={`pointer-events-none fixed top-0 left-0 z-[100] h-5 w-5 rounded-full border border-text/50 transition-[width,height] duration-300 ${isActive ? "block" : "hidden"}`}
       aria-hidden="true"
     />
   );

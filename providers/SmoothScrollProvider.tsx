@@ -21,14 +21,15 @@ export default function SmoothScrollProvider({
 
     lenis.on("scroll", ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
+    const tickerCallback = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
 
+    gsap.ticker.add(tickerCallback);
     gsap.ticker.lagSmoothing(0);
 
     return () => {
-      gsap.ticker.remove(lenis.raf);
+      gsap.ticker.remove(tickerCallback);
       lenis.destroy();
       lenisRef.current = null;
     };

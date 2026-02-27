@@ -2,13 +2,14 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap, ScrollTrigger } from "@/lib/gsap-config";
+import { gsap } from "@/lib/gsap-config";
 import SplitTextReveal from "@/components/ui/SplitTextReveal";
 import { prefersReducedMotion, isMobile } from "@/lib/utils";
 
 export default function SectionRiverStory() {
   const sectionRef = useRef<HTMLElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLParagraphElement>(null);
   const para1Ref = useRef<HTMLParagraphElement>(null);
   const para2Ref = useRef<HTMLParagraphElement>(null);
@@ -67,6 +68,7 @@ export default function SectionRiverStory() {
           pin: pinRef.current,
           pinSpacing: true,
           scrub: 1,
+          invalidateOnRefresh: true,
         },
       });
 
@@ -74,6 +76,12 @@ export default function SectionRiverStory() {
         labelRef.current,
         { opacity: 0, y: 20, duration: 0.15 },
         0
+      );
+
+      tl.from(
+        headlineRef.current,
+        { opacity: 0, y: 20, duration: 0.2 },
+        0.1
       );
 
       tl.from(
@@ -109,13 +117,15 @@ export default function SectionRiverStory() {
             The River&apos;s Story
           </p>
 
-          <SplitTextReveal
-            type="chars"
-            stagger={0.02}
-            className="font-serif text-[length:var(--text-section)] leading-[1.1]"
-          >
-            The Potawatomi called it Shikaakwa — the place of the wild onion.
-          </SplitTextReveal>
+          <div ref={headlineRef}>
+            <SplitTextReveal
+              type="chars"
+              stagger={0.02}
+              className="font-serif text-[length:var(--text-section)] leading-[1.1]"
+            >
+              The Potawatomi called it Shikaakwa — the place of the wild onion.
+            </SplitTextReveal>
+          </div>
 
           <p
             ref={para1Ref}

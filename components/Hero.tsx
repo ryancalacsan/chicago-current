@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap, ScrollTrigger } from "@/lib/gsap-config";
+import { gsap } from "@/lib/gsap-config";
 import ParallaxImage from "@/components/ui/ParallaxImage";
 import SplitTextReveal from "@/components/ui/SplitTextReveal";
 import TextReveal from "@/components/ui/TextReveal";

@@ -54,6 +54,11 @@ export default function Preloader() {
         duration: 0.8,
         ease: "power3.inOut",
         delay: 0.2,
+        onComplete: () => {
+          if (containerRef.current) {
+            containerRef.current.style.display = "none";
+          }
+        },
       });
     },
     { scope: containerRef, dependencies: [isLoading] }

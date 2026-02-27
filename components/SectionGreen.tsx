@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
-import { gsap, ScrollTrigger } from "@/lib/gsap-config";
+import { gsap } from "@/lib/gsap-config";
 import ImageReveal from "@/components/ui/ImageReveal";
 import TextReveal from "@/components/ui/TextReveal";
 import { prefersReducedMotion, isMobile } from "@/lib/utils";
@@ -53,16 +53,13 @@ export default function SectionGreen() {
     () => {
       if (prefersReducedMotion() || isMobile() || !trackRef.current) return;
 
-      const totalWidth = trackRef.current.scrollWidth;
-      const viewportWidth = window.innerWidth;
-
       const scrollTween = gsap.to(trackRef.current, {
-        x: -(totalWidth - viewportWidth),
+        x: () => -(trackRef.current!.scrollWidth - window.innerWidth),
         ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: () => `+=${totalWidth - viewportWidth}`,
+          end: () => `+=${trackRef.current!.scrollWidth - window.innerWidth}`,
           pin: true,
           scrub: 1,
           invalidateOnRefresh: true,

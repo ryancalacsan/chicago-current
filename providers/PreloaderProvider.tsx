@@ -4,18 +4,15 @@ import {
   createContext,
   useContext,
   useState,
-  useCallback,
   useEffect,
 } from "react";
 
 interface PreloaderContextType {
   isLoading: boolean;
-  setReady: () => void;
 }
 
 const PreloaderContext = createContext<PreloaderContextType>({
   isLoading: true,
-  setReady: () => {},
 });
 
 export function usePreloader() {
@@ -63,12 +60,8 @@ export default function PreloaderProvider({
     }
   }, [contentReady, minTimeElapsed]);
 
-  const setReady = useCallback(() => {
-    setContentReady(true);
-  }, []);
-
   return (
-    <PreloaderContext.Provider value={{ isLoading, setReady }}>
+    <PreloaderContext.Provider value={{ isLoading }}>
       {children}
     </PreloaderContext.Provider>
   );

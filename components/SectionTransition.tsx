@@ -16,17 +16,21 @@ export default function SectionTransition() {
     () => {
       if (prefersReducedMotion() || !sectionRef.current) return;
 
-      gsap.to(sectionRef.current, {
-        "--bg": "#3a3e44",
-        "--text": "#e8e4e0",
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 60%",
-          end: "top 10%",
-          scrub: true,
-        },
-      });
+      gsap.fromTo(
+        sectionRef.current,
+        { "--bg": "#1a3a2a", "--text": "#e8e0d0" },
+        {
+          "--bg": "#3a3e44",
+          "--text": "#e8e4e0",
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 60%",
+            end: "top 10%",
+            scrub: true,
+          },
+        }
+      );
     },
     { scope: sectionRef }
   );
@@ -34,7 +38,7 @@ export default function SectionTransition() {
   return (
     <section
       ref={sectionRef}
-      data-theme="green"
+      data-theme="transition"
       className="relative bg-bg py-32 text-text transition-colors md:py-48"
     >
       <div className="mx-auto max-w-7xl px-6">
