@@ -59,7 +59,7 @@ export default function SectionSummit() {
             </SplitTextReveal>
           </div>
 
-          <ScrollHighlight className="mt-8 text-center text-[length:var(--text-body)] leading-relaxed">
+          <ScrollHighlight className="mt-8 text-center text-[length:var(--text-body)] leading-relaxed" end="bottom 65%">
             The river doesn&apos;t belong to the city. The city belongs to the river.
           </ScrollHighlight>
 

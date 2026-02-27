@@ -9,12 +9,16 @@ interface ScrollHighlightProps {
   children: string;
   className?: string;
   tag?: "p" | "blockquote";
+  start?: string;
+  end?: string;
 }
 
 export default function ScrollHighlight({
   children,
   className = "",
   tag = "p",
+  start = "top 75%",
+  end = "bottom 35%",
 }: ScrollHighlightProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -55,8 +59,8 @@ export default function ScrollHighlight({
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top 75%",
-          end: "bottom 35%",
+          start,
+          end,
           scrub: true,
         },
       });
