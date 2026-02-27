@@ -51,7 +51,7 @@ export default function Hero() {
           priority
           objectPosition="center center"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-bg/20 via-bg/50 to-bg/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-bg/20 via-bg/60 to-bg/30" />
       </div>
 
       {/* Content */}
@@ -71,13 +71,13 @@ export default function Hero() {
         </TextReveal>
 
         <TextReveal delay={1} className="mt-8">
-          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-60">
+          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-70">
             Photography by Ryan Calacsan &middot; Words by Erica Zazo
           </p>
         </TextReveal>
 
         <TextReveal delay={1.2} className="mt-2">
-          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.2em] opacity-40">
+          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.2em] opacity-50">
             Mountain Gazette
           </p>
         </TextReveal>

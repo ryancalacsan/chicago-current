@@ -21,6 +21,12 @@ export default function SmoothScrollProvider({
 
     lenis.on("scroll", ScrollTrigger.update);
 
+    // Sync Lenis scroll bounds when ScrollTrigger recalculates
+    // (e.g. after pinned sections add pin-spacing)
+    const onRefresh = () => lenis.resize();
+    ScrollTrigger.addEventListener("refresh", onRefresh);
+    ScrollTrigger.refresh();
+
     const tickerCallback = (time: number) => {
       lenis.raf(time * 1000);
     };
@@ -29,6 +35,7 @@ export default function SmoothScrollProvider({
     gsap.ticker.lagSmoothing(0);
 
     return () => {
+      ScrollTrigger.removeEventListener("refresh", onRefresh);
       gsap.ticker.remove(tickerCallback);
       lenis.destroy();
       lenisRef.current = null;
