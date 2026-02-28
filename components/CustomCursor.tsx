@@ -86,7 +86,7 @@ export default function CustomCursor() {
   return (
     <div
       ref={cursorRef}
-      className={`pointer-events-none fixed top-0 left-0 z-[100] h-5 w-5 rounded-full border border-text/50 transition-[width,height] duration-300 ${isActive ? "block" : "hidden"}`}
+      className={`pointer-events-none fixed top-0 left-0 z-[100] h-5 w-5 rounded-full border border-white mix-blend-difference transition-[width,height] duration-300 ${isActive ? "block" : "hidden"}`}
       aria-hidden="true"
     />
   );

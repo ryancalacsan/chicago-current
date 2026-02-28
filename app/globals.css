@@ -84,6 +84,13 @@
   }
 }
 
+/* ─── Hide native cursor (custom cursor replaces it) ─── */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
