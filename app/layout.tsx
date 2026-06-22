@@ -18,6 +18,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://chicago-current.vercel.app"),
   title: "Chicago Current — Paddling the Chicago River",
   description:
     "A 9-mile kayak journey down the Chicago River. Photography by Ryan Calacsan, words by Erica Zazo. Originally published in Mountain Gazette.",
@@ -26,6 +27,21 @@ export const metadata: Metadata = {
     description:
       "A 9-mile kayak journey down the Chicago River. A scroll-driven photo essay.",
     type: "website",
+    images: [
+      {
+        url: "/social-preview.png",
+        width: 1280,
+        height: 640,
+        alt: "Chicago Current — a scroll-driven photo essay paddling the Chicago River.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Chicago Current — Paddling the Chicago River",
+    description:
+      "A 9-mile kayak journey down the Chicago River. A scroll-driven photo essay.",
+    images: ["/social-preview.png"],
   },
 };
 

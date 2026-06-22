@@ -85,9 +85,16 @@
 }
 
 /* ─── Hide native cursor (custom cursor replaces it) ─── */
+/* Scoped to a body class the CustomCursor component sets only when active,
+   so a JS/hydration failure never leaves a desktop user without any cursor. */
 @media (pointer: fine) {
-  * {
+  body.custom-cursor-active * {
     cursor: none !important;
+  }
+
+  /* Reveal the custom cursor element only once the component is active. */
+  body.custom-cursor-active .custom-cursor {
+    display: block;
   }
 }
 

@@ -26,7 +26,6 @@ export default function PreloaderProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [isLoading, setIsLoading] = useState(true);
   const [contentReady, setContentReady] = useState(false);
   const [minTimeElapsed, setMinTimeElapsed] = useState(false);
 
@@ -54,11 +53,8 @@ export default function PreloaderProvider({
     });
   }, []);
 
-  useEffect(() => {
-    if (contentReady && minTimeElapsed) {
-      setIsLoading(false);
-    }
-  }, [contentReady, minTimeElapsed]);
+  // Derived during render — no effect/state needed.
+  const isLoading = !(contentReady && minTimeElapsed);
 
   return (
     <PreloaderContext.Provider value={{ isLoading }}>
