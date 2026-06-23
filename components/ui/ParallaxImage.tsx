@@ -14,6 +14,8 @@ interface ParallaxImageProps {
   priority?: boolean;
   sizes?: string;
   objectPosition?: string;
+  /** Fired once the image settles (loaded or errored). */
+  onReady?: () => void;
 }
 
 export default function ParallaxImage({
@@ -24,6 +26,7 @@ export default function ParallaxImage({
   priority = false,
   sizes = "100vw",
   objectPosition = "center",
+  onReady,
 }: ParallaxImageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
@@ -63,6 +66,8 @@ export default function ParallaxImage({
           style={{ objectPosition }}
           sizes={sizes}
           priority={priority}
+          onLoad={onReady}
+          onError={onReady}
         />
       </div>
     </div>

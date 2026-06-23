@@ -7,9 +7,11 @@ import ParallaxImage from "@/components/ui/ParallaxImage";
 import SplitTextReveal from "@/components/ui/SplitTextReveal";
 import TextReveal from "@/components/ui/TextReveal";
 import { prefersReducedMotion } from "@/lib/utils";
+import { usePreloader } from "@/providers/PreloaderProvider";
 
 export default function Hero() {
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
+  const { markHeroLoaded } = usePreloader();
 
   useGSAP(() => {
     if (prefersReducedMotion() || !scrollIndicatorRef.current) return;
@@ -51,6 +53,7 @@ export default function Hero() {
           className="h-full w-full"
           priority
           objectPosition="center center"
+          onReady={markHeroLoaded}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-bg/20 via-bg/60 to-bg/30" />
       </div>
