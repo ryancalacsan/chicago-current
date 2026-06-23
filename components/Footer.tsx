@@ -17,7 +17,7 @@ export default function Footer() {
           <div className="text-[length:var(--text-caption)] leading-relaxed">
             <p>Photography by Ryan Calacsan</p>
             <p>Words by Erica Zazo</p>
-            <p className="mt-1 opacity-50">
+            <p className="mt-1 opacity-75">
               Originally published in Mountain Gazette
             </p>
           </div>
@@ -27,7 +27,7 @@ export default function Footer() {
               href="https://www.ryancalacsan.dev/"
               target="_blank"
               rel="noopener noreferrer"
-              className="opacity-60 transition-opacity duration-300 hover:opacity-100"
+              className="rounded-sm opacity-80 transition-opacity duration-300 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c8956c]"
             >
               Portfolio
             </a>
@@ -35,7 +35,7 @@ export default function Footer() {
               href="https://github.com/ryancalacsan"
               target="_blank"
               rel="noopener noreferrer"
-              className="opacity-60 transition-opacity duration-300 hover:opacity-100"
+              className="rounded-sm opacity-80 transition-opacity duration-300 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c8956c]"
             >
               GitHub
             </a>
@@ -43,13 +43,13 @@ export default function Footer() {
               href="https://linkedin.com/in/ryancalacsan"
               target="_blank"
               rel="noopener noreferrer"
-              className="opacity-60 transition-opacity duration-300 hover:opacity-100"
+              className="rounded-sm opacity-80 transition-opacity duration-300 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c8956c]"
             >
               LinkedIn
             </a>
           </div>
 
-          <p className="text-[length:var(--text-caption)] opacity-30">
+          <p className="text-[length:var(--text-caption)] opacity-75">
             Built with Next.js, GSAP, Tailwind CSS
           </p>
         </div>

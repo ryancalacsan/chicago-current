@@ -11,6 +11,8 @@ interface SplitTextRevealProps {
   stagger?: number;
   className?: string;
   delay?: number;
+  /** Element to render as (e.g. "h1" for the page title). Defaults to "div". */
+  as?: "div" | "h1" | "h2" | "h3" | "p";
 }
 
 export default function SplitTextReveal({
@@ -19,8 +21,9 @@ export default function SplitTextReveal({
   stagger = 0.03,
   className = "",
   delay = 0,
+  as: Tag = "div",
 }: SplitTextRevealProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
 
   useGSAP(
     () => {
@@ -96,8 +99,8 @@ export default function SplitTextReveal({
   );
 
   return (
-    <div ref={containerRef} className={className}>
+    <Tag ref={containerRef as React.Ref<HTMLHeadingElement>} className={className}>
       {children}
-    </div>
+    </Tag>
   );
 }

@@ -104,6 +104,15 @@ html {
   overflow-x: hidden;
 }
 
+/* ─── Visible focus (keyboard) ─── */
+/* Applies even when the custom cursor hides the pointer, so keyboard users
+   always get a clearly visible focus indicator (WCAG 2.4.7). */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
 body {
   background: var(--bg);
   color: var(--text);

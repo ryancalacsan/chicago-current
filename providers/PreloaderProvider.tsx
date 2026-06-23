@@ -19,7 +19,7 @@ export function usePreloader() {
   return useContext(PreloaderContext);
 }
 
-const MIN_DISPLAY_TIME = 2000;
+const MIN_DISPLAY_TIME = 1200;
 
 export default function PreloaderProvider({
   children,

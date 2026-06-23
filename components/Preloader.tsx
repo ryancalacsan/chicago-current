@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-config";
 import { usePreloader } from "@/providers/PreloaderProvider";
+import { prefersReducedMotion } from "@/lib/utils";
 
 export default function Preloader() {
   const { isLoading } = usePreloader();
@@ -13,7 +14,7 @@ export default function Preloader() {
 
   useGSAP(
     () => {
-      if (!titleRef.current || !barRef.current) return;
+      if (prefersReducedMotion() || !titleRef.current || !barRef.current) return;
 
       const chars = titleRef.current.textContent?.split("") || [];
       titleRef.current.innerHTML = "";
@@ -48,6 +49,12 @@ export default function Preloader() {
   useGSAP(
     () => {
       if (isLoading || !containerRef.current) return;
+
+      // Reduced motion: reveal content instantly, no slide-up.
+      if (prefersReducedMotion()) {
+        containerRef.current.style.display = "none";
+        return;
+      }
 
       gsap.to(containerRef.current, {
         yPercent: -100,

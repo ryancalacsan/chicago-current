@@ -6,12 +6,13 @@ import { gsap } from "@/lib/gsap-config";
 import ParallaxImage from "@/components/ui/ParallaxImage";
 import SplitTextReveal from "@/components/ui/SplitTextReveal";
 import TextReveal from "@/components/ui/TextReveal";
+import { prefersReducedMotion } from "@/lib/utils";
 
 export default function Hero() {
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if (!scrollIndicatorRef.current) return;
+    if (prefersReducedMotion() || !scrollIndicatorRef.current) return;
 
     // Bounce animation
     gsap.to(scrollIndicatorRef.current, {
@@ -57,6 +58,7 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center px-6 text-center [text-shadow:0_1px_12px_rgba(245,240,232,0.6),0_0_40px_rgba(245,240,232,0.3)]">
         <SplitTextReveal
+          as="h1"
           type="chars"
           stagger={0.04}
           className="font-serif text-[length:var(--text-hero)] leading-[0.9] tracking-tight"

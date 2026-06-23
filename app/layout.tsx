@@ -22,6 +22,10 @@ export const metadata: Metadata = {
   title: "Chicago Current — Paddling the Chicago River",
   description:
     "A 9-mile kayak journey down the Chicago River. Photography by Ryan Calacsan, words by Erica Zazo. Originally published in Mountain Gazette.",
+  authors: [{ name: "Ryan Calacsan" }, { name: "Erica Zazo" }],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Chicago Current — Paddling the Chicago River",
     description:

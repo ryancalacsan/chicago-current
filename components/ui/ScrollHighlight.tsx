@@ -11,6 +11,12 @@ interface ScrollHighlightProps {
   tag?: "p" | "blockquote";
   start?: string;
   end?: string;
+  /**
+   * Resting opacity of un-highlighted words. The read-along effect brightens
+   * each word to 1 on scroll. Kept high enough that the dimmed state still
+   * meets WCAG AA contrast (4.5:1) against its section background.
+   */
+  dimOpacity?: number;
 }
 
 export default function ScrollHighlight({
@@ -19,6 +25,7 @@ export default function ScrollHighlight({
   tag = "p",
   start = "top 75%",
   end = "bottom 35%",
+  dimOpacity = 0.65,
 }: ScrollHighlightProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -51,7 +58,7 @@ export default function ScrollHighlight({
 
       if (prefersReducedMotion()) return;
 
-      gsap.set(wordSpans, { opacity: 0.15 });
+      gsap.set(wordSpans, { opacity: dimOpacity });
 
       gsap.to(wordSpans, {
         opacity: 1,
@@ -65,7 +72,7 @@ export default function ScrollHighlight({
         },
       });
     },
-    { scope: containerRef }
+    { scope: containerRef, dependencies: [dimOpacity] }
   );
 
   const Tag = tag;
