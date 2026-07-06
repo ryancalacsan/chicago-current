@@ -60,6 +60,11 @@ export default function RootLayout({
       className={`${instrumentSerif.variable} ${inter.variable}`}
     >
       <body>
+        {/* Reveal animations start hidden (opacity:0) and are un-hidden by JS.
+            Without scripting they would stay invisible, so force them visible. */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important;clip-path:none!important}`}</style>
+        </noscript>
         <PreloaderProvider>
           <SmoothScrollProvider>{children}</SmoothScrollProvider>
         </PreloaderProvider>

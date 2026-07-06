@@ -34,6 +34,17 @@ export default function SplitTextReveal({
 
       containerRef.current.innerHTML = "";
 
+      // Screen readers read this real-text copy; the animated spans below are
+      // aria-hidden so per-char/word splitting is never spelled out. Works on
+      // any element (aria-label on a role-less <div> is not reliably exposed).
+      const srSpan = document.createElement("span");
+      srSpan.className = "sr-only";
+      srSpan.textContent = text;
+      containerRef.current.appendChild(srSpan);
+
+      const visual = document.createElement("span");
+      visual.setAttribute("aria-hidden", "true");
+
       const animTargets: HTMLSpanElement[] = [];
 
       words.forEach((word, wordIndex) => {
@@ -72,14 +83,16 @@ export default function SplitTextReveal({
           animTargets.push(inner);
         }
 
-        containerRef.current!.appendChild(wordWrapper);
+        visual.appendChild(wordWrapper);
 
         // Add space between words (except after last word)
         if (wordIndex < words.length - 1) {
           const space = document.createTextNode("\u00A0");
-          containerRef.current!.appendChild(space);
+          visual.appendChild(space);
         }
       });
+
+      containerRef.current.appendChild(visual);
 
       gsap.from(animTargets, {
         yPercent: 110,

@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-config";
+import { prefersReducedMotion } from "@/lib/utils";
 
 export default function ScrollProgress() {
   const barRef = useRef<HTMLDivElement>(null);
@@ -10,6 +11,9 @@ export default function ScrollProgress() {
   useGSAP(() => {
     if (!barRef.current) return;
 
+    // The bar directly tracks scroll position (an informative indicator, not
+    // autonomous motion). Under reduced-motion we drop the scrub smoothing so
+    // it maps 1:1 to scroll with no independent easing/lag.
     gsap.to(barRef.current, {
       scaleX: 1,
       ease: "none",
@@ -17,7 +21,7 @@ export default function ScrollProgress() {
         trigger: document.documentElement,
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.3,
+        scrub: prefersReducedMotion() ? true : 0.3,
       },
     });
   });

@@ -76,6 +76,7 @@ export default function ImageReveal({
   return (
     <div
       ref={containerRef}
+      data-reveal
       className={`relative overflow-hidden ${className}`}
       style={{ clipPath: initialClipPath, opacity: 0 }}
     >

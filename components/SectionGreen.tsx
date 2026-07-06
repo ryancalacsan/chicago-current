@@ -106,7 +106,7 @@ export default function SectionGreen() {
       {/* Section header (mobile) */}
       <div className="px-6 pt-32 pb-12 md:hidden">
         <TextReveal>
-          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-50">
+          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-70">
             Mile 2
           </p>
         </TextReveal>
@@ -148,7 +148,7 @@ export default function SectionGreen() {
       >
         {/* Title panel */}
         <div className="shrink-0 md:flex md:h-full md:w-screen md:flex-col md:items-center md:justify-center md:px-24">
-          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-50">
+          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-70">
             Mile 2
           </p>
           <h2 className="mt-4 font-serif text-[length:var(--text-hero)] leading-[0.9]">
@@ -166,7 +166,7 @@ export default function SectionGreen() {
         {images.map((img, i) => {
           const isPortrait = img.orientation === "portrait";
           return (
-            <div
+            <figure
               key={i}
               className={`green-image-panel group relative shrink-0 overflow-hidden md:h-[80vh] ${isPortrait ? "md:w-[40vw]" : "md:w-[60vw]"}`}
             >
@@ -180,12 +180,15 @@ export default function SectionGreen() {
                   sizes={isPortrait ? "40vw" : "60vw"}
                 />
               </div>
-              <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/50 to-transparent px-6 pb-5 pt-12 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                <p className="text-[length:var(--text-caption)] tracking-[0.1em] text-white/80">
+              {/* Location caption: pointer-hover reveal. The text stays in the
+                  a11y tree (opacity, not display:none) so screen readers always
+                  announce it as the figure's caption. */}
+              <figcaption className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/70 to-transparent px-6 pb-5 pt-12 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                <p className="text-[length:var(--text-caption)] tracking-[0.1em] text-white">
                   {img.caption}
                 </p>
-              </div>
-            </div>
+              </figcaption>
+            </figure>
           );
         })}
       </div>

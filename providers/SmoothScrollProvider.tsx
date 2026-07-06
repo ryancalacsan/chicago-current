@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "@/lib/gsap-config";
+import { prefersReducedMotion } from "@/lib/utils";
 
 export default function SmoothScrollProvider({
   children,
@@ -12,6 +13,10 @@ export default function SmoothScrollProvider({
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    // Honor reduced-motion: skip Lenis entirely so the browser's native
+    // scrolling (and its accessibility behaviors) is used unmodified.
+    if (prefersReducedMotion()) return;
+
     const lenis = new Lenis({
       lerp: 0.1,
       smoothWheel: true,
