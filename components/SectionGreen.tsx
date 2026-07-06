@@ -128,15 +128,21 @@ export default function SectionGreen() {
         {images.map((img, i) => {
           const isPortrait = img.orientation === "portrait";
           return (
-            <ImageReveal
-              key={i}
-              src={img.src}
-              alt={img.alt}
-              direction={img.mobileReveal}
-              objectPosition={img.objectPosition}
-              sizes="100vw"
-              className={`relative w-full ${isPortrait ? "aspect-[2/3]" : "aspect-[4/3]"}`}
-            />
+            <figure key={i} className="relative">
+              <ImageReveal
+                src={img.src}
+                alt={img.alt}
+                direction={img.mobileReveal}
+                objectPosition={img.objectPosition}
+                sizes="100vw"
+                className={`relative w-full ${isPortrait ? "aspect-[2/3]" : "aspect-[4/3]"}`}
+              />
+              <figcaption className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/70 to-transparent px-5 pb-4 pt-10">
+                <p className="text-[length:var(--text-caption)] tracking-[0.1em] text-white">
+                  {img.caption}
+                </p>
+              </figcaption>
+            </figure>
           );
         })}
       </div>
@@ -180,11 +186,10 @@ export default function SectionGreen() {
                   sizes={isPortrait ? "40vw" : "60vw"}
                 />
               </div>
-              {/* Location caption: pointer-hover reveal. The text stays in the
-                  a11y tree (opacity, not display:none) so screen readers always
-                  announce it as the figure's caption. */}
-              <figcaption className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/70 to-transparent px-6 pb-5 pt-12 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                <p className="text-[length:var(--text-caption)] tracking-[0.1em] text-white">
+              {/* Location caption: always visible (readable by every user and
+                  input type), brightening slightly on hover as a polish touch. */}
+              <figcaption className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/70 to-transparent px-6 pb-5 pt-12">
+                <p className="text-[length:var(--text-caption)] tracking-[0.1em] text-white/90 transition-colors duration-300 group-hover:text-white">
                   {img.caption}
                 </p>
               </figcaption>
