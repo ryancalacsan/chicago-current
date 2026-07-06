@@ -15,7 +15,7 @@ export default function SectionLaunch() {
       <div className="mx-auto max-w-7xl px-6">
         {/* Mile marker + title */}
         <TextReveal className="mx-auto max-w-2xl text-center">
-          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-50">
+          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-70">
             Mile 0
           </p>
         </TextReveal>
@@ -62,7 +62,7 @@ export default function SectionLaunch() {
               objectPosition="center center"
             />
             <TextReveal>
-              <p className="text-[length:var(--text-caption)] uppercase tracking-[0.2em] opacity-60">
+              <p className="text-[length:var(--text-caption)] uppercase tracking-[0.2em] opacity-70">
                 North Shore Channel &middot; 6:47 AM
               </p>
             </TextReveal>

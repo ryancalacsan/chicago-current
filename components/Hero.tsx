@@ -76,13 +76,13 @@ export default function Hero() {
         </TextReveal>
 
         <TextReveal delay={1} className="mt-8">
-          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-70">
+          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-90">
             Photography by Ryan Calacsan &middot; Words by Erica Zazo
           </p>
         </TextReveal>
 
         <TextReveal delay={1.2} className="mt-2">
-          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.2em] opacity-50">
+          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.2em] opacity-90">
             Mountain Gazette
           </p>
         </TextReveal>

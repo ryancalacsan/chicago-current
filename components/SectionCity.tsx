@@ -14,7 +14,7 @@ export default function SectionCity() {
     >
       <div className="mx-auto max-w-7xl px-6">
         <TextReveal>
-          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-50">
+          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-70">
             Mile 7
           </p>
         </TextReveal>

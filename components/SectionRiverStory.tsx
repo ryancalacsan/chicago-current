@@ -112,7 +112,7 @@ export default function SectionRiverStory() {
         <div className="mx-auto max-w-4xl text-center">
           <p
             ref={labelRef}
-            className="mb-12 text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-50"
+            className="mb-12 text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-70"
           >
             The River&apos;s Story
           </p>

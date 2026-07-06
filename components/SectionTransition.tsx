@@ -44,7 +44,7 @@ export default function SectionTransition() {
       <div className="mx-auto max-w-7xl px-6">
         {/* Mile marker + title */}
         <TextReveal>
-          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-50">
+          <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-70">
             Mile 4
           </p>
         </TextReveal>

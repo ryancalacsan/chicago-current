@@ -23,7 +23,7 @@ export default function SectionSummit() {
 
         <div className="absolute inset-0 flex flex-col items-center justify-end pb-24 px-6 [text-shadow:0_2px_12px_rgba(0,0,0,0.3)]">
           <TextReveal>
-            <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-60">
+            <p className="text-[length:var(--text-caption)] uppercase tracking-[0.3em] opacity-80">
               Mile 9 &middot; Journey&apos;s End
             </p>
           </TextReveal>
