@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { isMobile } from "@/lib/utils";
+import { isMobile, prefersReducedMotion } from "@/lib/utils";
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -12,7 +12,9 @@ export default function CustomCursor() {
   const isOverImageRef = useRef(false);
 
   useEffect(() => {
-    if (isMobile() || "ontouchstart" in window) return;
+    // Skip for reduced-motion users: never hide the native cursor (preserving
+    // their OS cursor size/contrast settings) and avoid the lagging follower.
+    if (isMobile() || "ontouchstart" in window || prefersReducedMotion()) return;
 
     const animate = () => {
       const lerp = 0.15;

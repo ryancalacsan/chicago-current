@@ -119,6 +119,7 @@ export default function SectionRiverStory() {
 
           <div ref={headlineRef}>
             <SplitTextReveal
+              as="h2"
               type="chars"
               stagger={0.02}
               className="font-serif text-[length:var(--text-section)] leading-[1.1]"

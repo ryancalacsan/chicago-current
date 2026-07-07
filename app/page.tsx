@@ -25,7 +25,7 @@ export default function Home() {
         Skip to content
       </a>
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1} className="focus-visible:outline-none">
         <Hero />
         <SectionLaunch />
         <SectionRiverStory />
