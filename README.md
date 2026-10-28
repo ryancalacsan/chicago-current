@@ -2,7 +2,7 @@
 
 A scroll-driven photo essay documenting a nine-mile kayak journey down the Chicago River — from the tree-lined North Branch to the urban canyon of the Riverwalk. Photography by Ryan Calacsan, words by Erica Zazo, originally published in Mountain Gazette.
 
-**[View Live](https://chicago-current.vercel.app)**
+**[View Live](https://chicago-current.ryancalacsan.dev)**
 
 ![Chicago Current Preview](./preview.png)
 
@@ -32,9 +32,12 @@ A scroll-driven photo essay documenting a nine-mile kayak journey down the Chica
 - **Scroll progress bar** — Fixed 2px indicator tracking page scroll position
 - **Gradient section bridges** — Smooth color transitions between sections eliminate hard cuts
 - **Reduced motion support** — All animations gracefully degrade, images remain visible
+- **Accessibility** — WCAG 2.2 AA text contrast, screen-reader text for split/animated headings, skip link and keyboard focus handling, and a no-JS fallback so content is never left hidden
 - **Mobile-optimized** — Responsive layouts with touch-aware animation adjustments
 
 ## Getting Started
+
+Requires Node.js 22+ and pnpm 10.
 
 ```bash
 pnpm install
@@ -42,6 +45,15 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the site.
+
+| Command | Description |
+| --- | --- |
+| `pnpm dev` | Start the dev server |
+| `pnpm build` | Production build (also type-checks) |
+| `pnpm start` | Serve the production build |
+| `pnpm lint` | Run ESLint |
+
+CI runs lint, type-check, and build on every pull request and push to `main`.
 
 ## Project Structure
 
@@ -79,4 +91,10 @@ lib/
 
 ## Deployment
 
-Deployed on [Vercel](https://chicago-current.vercel.app). No environment variables required.
+Deployed on [Vercel](https://vercel.com) at [chicago-current.ryancalacsan.dev](https://chicago-current.ryancalacsan.dev) (Node.js 24). Every pull request gets a preview deployment; merging to `main` deploys to production. No environment variables required.
+
+## Maintenance
+
+- **Dependabot** opens weekly PRs for npm updates (minor/patch grouped into one PR) and monthly PRs for GitHub Actions. Security fixes are opened immediately.
+- Merge once CI passes and the Vercel preview looks right.
+- Upgrades that are deliberately held back are tracked in [TODO.md](./TODO.md).
